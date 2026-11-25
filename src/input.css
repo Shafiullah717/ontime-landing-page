@@ -60,10 +60,19 @@
 }
 
 .hero-bg-pattern {
+  position: relative;
+}
+
+.hero-bg-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-image: url("../images/sass_bg-min.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  opacity: 0.2;
+  pointer-events: none;
 }
 
 /* Mountain / wave section dividers matching Kadence row separators */
