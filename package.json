@@ -1,0 +1,14 @@
+{
+  "name": "ontime-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static landing page and privacy policy for OnTime-hr by WAMCorp.",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/styles.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

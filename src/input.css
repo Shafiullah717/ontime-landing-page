@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --color-brand: #eb6440;
+  --color-brand-dark: #d45331;
+  --color-ink-heading: #3d465c;
+  --color-ink-body: #2d3748;
+  --color-ink-muted: #7a8296;
+  --color-border-warm: #e5e0d8;
+  --color-surface-warm: #f7f5f0;
+  --color-surface-light: #f8f9fa;
+  --color-navy: #17223b;
+  --color-navy-dark: #111a2e;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    color: var(--color-ink-body);
+    background-color: var(--color-surface-light);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    color: var(--color-ink-heading);
+    line-height: 1.5;
+  }
+}
+
+/* Header sticky & transparent states */
+.site-header-transparent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.site-header-transparent.is-stuck {
+  background-color: #eb6440;
+}
+
+.site-header-solid {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: #eb6440;
+}
+
+/* Hero gradient + texture background */
+.hero-gradient {
+  background: linear-gradient(90deg, #eb6440 12%, #d45331 100%);
+}
+
+.hero-bg-pattern {
+  background-image: url("../images/sass_bg-min.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Mountain / wave section dividers matching Kadence row separators */
+.row-sep-bottom {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.row-sep-bottom svg {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100.2%;
+  height: 100%;
+  display: block;
+}
+
+.row-sep-top {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.row-sep-top--lg {
+  height: 120px;
+}
+
+.row-sep-top svg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  width: 100.2%;
+  height: 100%;
+  display: block;
+}
+
+/* Feature card shadow matching original subtle elevation */
+.feature-card {
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.25s ease;
+}
+
+.feature-card:hover {
+  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.07);
+}
+
+/* Google Play badge PNG transparent-padding compensation */
+.gplay-badge-img {
+  transform: scale(1.66);
+  transform-origin: center center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.gplay-badge-link:hover .gplay-badge-img {
+  transform: scale(1.66) translateY(-2px);
+  opacity: 0.92;
+}
+
+@media (min-width: 768px) {
+  .gplay-badge-img {
+    transform-origin: left center;
+  }
+}
+
+.appstore-badge-img {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.appstore-badge-link:hover .appstore-badge-img {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+/* Mobile navigation drawer built with native <dialog> */
+dialog.mobile-dialog {
+  inset: 0 0 0 auto;
+  width: min(22rem, 90dvw);
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border: 0;
+  background-color: #090c10;
+  color: #ffffff;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.25s ease, display 0.3s, overlay 0.3s;
+  transition-behavior: allow-discrete;
+}
+
+dialog.mobile-dialog[open] {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+@starting-style {
+  dialog.mobile-dialog[open] {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+dialog.mobile-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.25s ease, display 0.25s, overlay 0.25s;
+  transition-behavior: allow-discrete;
+}
+
+dialog.mobile-dialog[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  dialog.mobile-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.mobile-dialog,
+  dialog.mobile-dialog::backdrop {
+    transition: none;
+  }
+}
+
+/* Privacy Policy prose & tables */
+.legal-prose p,
+.legal-prose li {
+  color: #2d3748;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.legal-prose p {
+  margin-bottom: 1.1rem;
+}
+
+.legal-prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.legal-prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.legal-prose li {
+  margin-bottom: 0.45rem;
+}
+
+.legal-prose a {
+  color: #eb6440;
+  text-decoration: none;
+}
+
+.legal-prose a:hover {
+  text-decoration: underline;
+}
+
+.legal-prose h2 {
+  color: #17223b;
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid #f7f5f0;
+  scroll-margin-top: 96px;
+}
+
+.legal-prose h3 {
+  color: #17223b;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  margin: 1.25rem 0 1.75rem 0;
+}
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.legal-table th {
+  background-color: #17223b;
+  color: #ffffff;
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+}
+
+.legal-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+  color: #2d3748;
+}
+
+.legal-table tr:nth-child(even) td {
+  background-color: #f8f9fa;
+}
+
+@media (max-width: 767px) {
+  .legal-table th,
+  .legal-table td {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+}
