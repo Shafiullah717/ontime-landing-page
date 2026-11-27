@@ -46,4 +46,51 @@
   drawer.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", closeDrawer);
   });
+
+  // Web3Forms Request Access form submission
+  const requestForm = document.getElementById("request-access-form");
+  const requestResult = document.getElementById("request-form-result");
+  const submitBtn = document.getElementById("request-access-submit");
+
+  if (requestForm && requestResult && submitBtn) {
+    requestForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const originalLabel = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending request...";
+      requestResult.textContent = "";
+      requestResult.className = "min-h-[1.25rem] text-center text-[14px] font-medium text-ink-muted";
+
+      try {
+        const formData = new FormData(requestForm);
+        const payload = JSON.stringify(Object.fromEntries(formData));
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: payload,
+        });
+
+        const data = await response.json();
+        if (response.ok && data.success) {
+          requestResult.textContent = "Request received! Our team will reach out shortly.";
+          requestResult.className = "min-h-[1.25rem] text-center text-[14px] font-medium text-emerald-700";
+          requestForm.reset();
+        } else {
+          requestResult.textContent = data.message || "Unable to send request. Please try again.";
+          requestResult.className = "min-h-[1.25rem] text-center text-[14px] font-medium text-red-600";
+        }
+      } catch {
+        requestResult.textContent = "Network error. Please try again or email info@wam-corp.com.";
+        requestResult.className = "min-h-[1.25rem] text-center text-[14px] font-medium text-red-600";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalLabel;
+      }
+    });
+  }
 })();
