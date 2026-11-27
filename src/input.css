@@ -44,7 +44,9 @@
 }
 
 .site-header-transparent.is-stuck {
-  background-color: #eb6440;
+  background-color: rgba(235, 100, 64, 0.96);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px -2px rgba(17, 26, 46, 0.14);
 }
 
 .site-header-solid {
@@ -52,6 +54,7 @@
   top: 0;
   z-index: 50;
   background-color: #eb6440;
+  box-shadow: 0 4px 20px -2px rgba(17, 26, 46, 0.12);
 }
 
 /* Hero gradient + texture background */
